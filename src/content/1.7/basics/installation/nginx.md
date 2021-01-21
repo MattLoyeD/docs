@@ -118,9 +118,10 @@ server {
         access_log off;
     }
 
-    # [REQUIRED EDIT IF MULTILANG]
-    # rewrite ^/fr$ /fr/ redirect;
-    # rewrite ^/fr/(.*) /$1;
+    # Also handles multilang
+    location / {
+        try_files $uri $uri/ /index.php?q=$uri&$args;
+    }
 
     # Images
     rewrite ^/([0-9])(-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+.jpg$ /img/p/$1/$1$2$3.jpg last;
